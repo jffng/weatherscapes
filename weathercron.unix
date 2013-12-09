@@ -1,0 +1,2 @@
+MAILTO="jjo298@nyu.edu"
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /usr/local/php54/bin/php jffng.com/ITP/commlabweb/weatherviz/weatherscrape.php

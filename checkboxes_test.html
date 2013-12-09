@@ -1,0 +1,41 @@
+<html>
+<head>
+	<style>
+			body {
+				font-family: Monospace;
+				color: #f0f0f0;
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+</head>
+<body>
+<script type="text/javascript" src="libs/three.min.js"></script>
+<script type="text/javascript">
+
+			container = document.createElement('div');
+			document.body.appendChild(container);
+
+			var info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '10px';
+			info.style.left = '10px';
+			info.style.width = '100%';
+			info.style.textAlign = 'left';
+
+			info.innerHTML = 'Web + 3D Programming Final Project: <br/> Weather Visualization across cities';
+
+			info.innerHTML += '<br/> <br/> LA: <input id="LA" type="checkbox" onchange="addLA()" />';
+
+			info.innerHTML += '<br/> NYC: <input id="NYC" type="checkbox" onchange="addLA()"/>';
+
+			info.innerHTML += '<br/> CHI: <input id="CHI" type="checkbox" onchange="addCHI()"/>';
+
+			info.innerHTML += '<br/> BOS: <input id="BOS" type="checkbox" onchange="addLA()"/>';			
+
+			container.appendChild(info);
+</script>
+</body>
+
+</html>
