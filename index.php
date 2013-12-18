@@ -14,10 +14,7 @@
 	$weatherMapper = new DataModel($weatherAdapter);
 	$weatherMapper->migrate();
 
-	//$weather = $weatherMapper->all();
-	$time = time() - (7 * 24 * 60 * 60);
-
-	$weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created >" . (time() - (7 * 24 * 60 * 60)));
+	$weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created >" . (time() - (14 * 24 * 60 * 60)));
 
 	foreach($weather as $cities){
 			if ($cities->city == "Los Angeles"){
@@ -221,13 +218,13 @@
 						// var geometryavg = new THREE.Geometry();
 
 						for(var t = 2; t < <?echo($L)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, LA[t][0]*10))							
+							geometry.vertices.push( new THREE.Vector3(0, LA[t][0]*10, -t ));							
 							// geometryavg.vertices.push( new THREE.Vector3( <? echo($windavgL); ?> * 25, <?echo($tempavgL); ?> * 10, -t*2));
 						}
 						console.log(geometry.vertices, "length", geometry.vertices.length );
 
 						for ( var i = 2; i < <? echo($L) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( LA[i][1]*10, i-100, LA[i][0]*10) );
+							geometry.vertices.push( new THREE.Vector3 ( LA[i][1]*5, LA[i][0]*10, -i ));
 						}
 						console.log(geometry.vertices, "length", geometry.vertices.length );
 
@@ -256,12 +253,12 @@
 						var geometry = new THREE.Geometry();
 
 						for(var t = 2; t < <?echo($N)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, NYC[t][0]*10))							
+							geometry.vertices.push( new THREE.Vector3(-50, NYC[t][0]*10, -t))							
 						}
 						console.log(geometry.vertices, "length", geometry.vertices.length );
 
 						for ( var i = 2; i < <? echo($N) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( NYC[i][1]*10, i-100, NYC[i][0]*10) );
+							geometry.vertices.push( new THREE.Vector3 ( NYC[i][1]*5-50, NYC[i][0]*10, -i) );
 						}
 						console.log(geometry.vertices, "length", geometry.vertices.length );
 
@@ -290,10 +287,10 @@
 					{
 						var geometry = new THREE.Geometry();
 						for(var t = 2; t < <?echo($C)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, CHI[t][0]*10))							
+							geometry.vertices.push( new THREE.Vector3(50, CHI[t][0]*10, -t))							
 						}
 						for ( var i = 2; i < <? echo($C) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( CHI[i][1]*10, i-100, CHI[i][0]*10) );
+							geometry.vertices.push( new THREE.Vector3 ( CHI[i][1]*5+50, CHI[i][0]*10, -i) );
 						}
 						for (var f = 0; f < <?echo($C)?> - 6 ; f++) {						
 							geometry.faces.push( new THREE.Face3( f, f+<?echo($C)?>, f+1) );
@@ -319,10 +316,10 @@
 					{
 						var geometry = new THREE.Geometry();
 						for(var t = 2; t < <?echo($B)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, BOS[t][0]*10))							
+							geometry.vertices.push( new THREE.Vector3(100, BOS[t][0], -t)	);						
 						}
 						for ( var i = 2; i < <? echo($B) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( BOS[i][1]*10, i-100, BOS[i][0]*10) );
+							geometry.vertices.push( new THREE.Vector3 ( BOS[i][1]*5+100, BOS[i][0]*10, -i) );
 						}
 						for (var f = 0; f < <?echo($B)?> - 6 ; f++) {						
 							geometry.faces.push( new THREE.Face3( f, f+<?echo($B)?>, f+1) );
@@ -371,9 +368,9 @@
 						container.appendChild( renderer.domElement );
 
 						camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-						camera.position.z = 150;
-						camera.position.y = -100;
-						camera.position.x = -100;
+						camera.position.z = 75;
+						// camera.position.y = -100;
+						// camera.position.x = -100;
 						// camera.lookAt(new THREE.Vector3( <? echo($windavgL); ?> * 25, <?echo($tempavgL); ?> * 10,<?echo(-$L/2)?>));
 						chimesh = new THREE.Object3D();
 						nycmesh = new THREE.Object3D();
