@@ -287,7 +287,7 @@
 					{
 						var geometry = new THREE.Geometry();
 						for(var t = 2; t < <?echo($C)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(50, CHI[t][0]*10, -t))							
+							geometry.vertices.push( new THREE.Vector3(50, CHI[t][0]*10, -t));							
 						}
 						for ( var i = 2; i < <? echo($C) ?>; i++) {
 							geometry.vertices.push( new THREE.Vector3 ( CHI[i][1]*5+50, CHI[i][0]*10, -i) );
@@ -316,7 +316,8 @@
 					{
 						var geometry = new THREE.Geometry();
 						for(var t = 2; t < <?echo($B)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(100, BOS[t][0], -t)	);						
+							geometry.vertices.push( new THREE.Vector3(100, BOS[t][0], -t)	);
+							// geometry.vertexColors.push( new THREE.Color(0xff0033) );						
 						}
 						for ( var i = 2; i < <? echo($B) ?>; i++) {
 							geometry.vertices.push( new THREE.Vector3 ( BOS[i][1]*5+100, BOS[i][0]*10, -i) );
@@ -328,7 +329,7 @@
 
 						geometry.computeFaceNormals();
 
-						var material = new THREE.MeshNormalMaterial( { color: 0xff0033 } );
+						var material = new THREE.MeshNormalMaterial();
 						var mesh = new THREE.Mesh( geometry, material );
 						bosmesh.add(mesh);
 						scene.add(bosmesh);
