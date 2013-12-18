@@ -17,7 +17,7 @@
 	//$weather = $weatherMapper->all();
 	$time = time() - (7 * 24 * 60 * 60);
 
-	$weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created >" . (time() - (7 * 24 * 60 * 60)));
+	$weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created > 1386500000");
 
 	foreach($weather as $cities){
 			if ($cities->city == "Los Angeles"){
@@ -253,32 +253,22 @@
 					nt++;
 					if(nt % 2 === 0){
 						// NYC
-						var geometry = new THREE.Geometry();
-
-						for(var t = 2; t < <?echo($N)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, NYC[t][0]*10))							
+						var geometry2 = new THREE.Geometry(); 
+						var geometryavg2 = new THREE.Geometry();						
+						for(var t = 1; t < <?echo($N)?>; t++){
+							geometry2.vertices.push( new THREE.Vector3( NYC[t][1]*25, NYC[t][0]*10, -t*2 ) );
+							geometryavg2.vertices.push( new THREE.Vector3( <? echo($windavgN); ?> * 25, <?echo($tempavgN); ?> * 10, -t*2));
 						}
-						console.log(geometry.vertices, "length", geometry.vertices.length );
-
-						for ( var i = 2; i < <? echo($N) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( NYC[i][1]*10, i-100, NYC[i][0]*10) );
-						}
-						console.log(geometry.vertices, "length", geometry.vertices.length );
-
-						for (var f = 0; f < <?echo($N)?> - 6 ; f++) {						
-							geometry.faces.push( new THREE.Face3( f, f+<?echo($N)?>, f+1) );
-							geometry.faces.push( new THREE.Face3( f+<?echo($N)?>, f+<?echo($N)?>+1, f+1) );
-						}
-
-						geometry.computeFaceNormals();
-
-						var material = new THREE.MeshNormalMaterial( { color: 0xff9933 } );
-						var mesh = new THREE.Mesh( geometry, material );
-						nycmesh.add(mesh);
-						scene.add(nycmesh);
+						var material2 = new THREE.LineBasicMaterial({ color: 0xff9933 } );
+						var avgmaterial2 = new THREE.LineBasicMaterial({ color: 0xffffff });
+						var line2 = new THREE.Line( geometry2, material2 );
+						var line2avg = new THREE.Line( geometryavg2, avgmaterial2 );
+						nyclines.add(line2);
+						nyclines.add(line2avg);
+						scene.add(nyclines);
 					}
 					else{
-						scene.remove(nycmesh);
+						scene.remove(nyclines);
 						animate();
 					}
 				}
@@ -288,27 +278,22 @@
 					ct++
 					if (ct % 2 === 0)
 					{
-						var geometry = new THREE.Geometry();
-						for(var t = 2; t < <?echo($C)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, CHI[t][0]*10))							
+						var geometry3 = new THREE.Geometry(); 
+						var geometryavg3 = new THREE.Geometry();						
+						for(var t = 1; t < <?echo($C)?>; t++){
+							geometry3.vertices.push( new THREE.Vector3( CHI[t][1]*25, CHI[t][0]*10, -t*2 ) );
+							geometryavg3.vertices.push( new THREE.Vector3( <? echo($windavgC); ?> * 25, <?echo($tempavgC); ?> * 10, -t*2));
 						}
-						for ( var i = 2; i < <? echo($C) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( CHI[i][1]*10, i-100, CHI[i][0]*10) );
-						}
-						for (var f = 0; f < <?echo($C)?> - 6 ; f++) {						
-							geometry.faces.push( new THREE.Face3( f, f+<?echo($C)?>, f+1) );
-							geometry.faces.push( new THREE.Face3( f+<?echo($C)?>, f+<?echo($C)?>+1, f+1) );
-						}
-
-						geometry.computeFaceNormals();
-
-						var material = new THREE.MeshNormalMaterial( { color: 0x99ccff } );
-						var mesh = new THREE.Mesh( geometry, material );
-						chimesh.add(mesh);
-						scene.add(chimesh);
+						var material3 = new THREE.LineBasicMaterial({ color: 0x99ccff } );
+						var avgmaterial3 = new THREE.LineBasicMaterial({ color: 0xffffff });
+						var line3 = new THREE.Line( geometry3, material3 );
+						var line3avg = new THREE.Line( geometryavg3, avgmaterial3 );
+						chilines.add(line3);
+						chilines.add(line3avg);
+						scene.add(chilines);
 					}
 					else{
-						scene.remove(chimesh);
+						scene.remove(chilines);
 						animate();
 					}
 				}
@@ -317,29 +302,25 @@
 					bt++; 
 					if (bt % 2 === 0)
 					{
-						var geometry = new THREE.Geometry();
-						for(var t = 2; t < <?echo($B)?>; t++){
-							geometry.vertices.push( new THREE.Vector3(0, t-100, BOS[t][0]*10))							
+							var geometry5 = new THREE.Geometry(); 
+							var geometryavg5 = new THREE.Geometry();						
+							for(var t = 3; t < <?echo($B)?>; t++){
+								geometry5.vertices.push( new THREE.Vector3( BOS[t][1]*25, BOS[t][0]*10, -t*2 ) );
+								geometryavg5.vertices.push( new THREE.Vector3( <? echo($windavgB); ?> * 25, <?echo($tempavgB); ?> * 10, -t*2 ));
+							}
+							var material5 = new THREE.LineBasicMaterial({ color: 0xff0033 } );
+							var avgmaterial5 = new THREE.LineBasicMaterial({ color: 0xffffff });
+							var line5 = new THREE.Line( geometry5, material5 );
+							var line5avg = new THREE.Line( geometryavg5, avgmaterial5 );
+							boslines.add(line5);
+							boslines.add(line5avg);
+							scene.add(boslines);
 						}
-						for ( var i = 2; i < <? echo($B) ?>; i++) {
-							geometry.vertices.push( new THREE.Vector3 ( BOS[i][1]*10, i-100, BOS[i][0]*10) );
+					else
+						{
+							scene.remove(boslines);
+							animate();
 						}
-						for (var f = 0; f < <?echo($B)?> - 6 ; f++) {						
-							geometry.faces.push( new THREE.Face3( f, f+<?echo($B)?>, f+1) );
-							geometry.faces.push( new THREE.Face3( f+<?echo($B)?>, f+<?echo($B)?>+1, f+1) );
-						}
-
-						geometry.computeFaceNormals();
-
-						var material = new THREE.MeshNormalMaterial( { color: 0xff0033 } );
-						var mesh = new THREE.Mesh( geometry, material );
-						bosmesh.add(mesh);
-						scene.add(bosmesh);
-					}
-					else{
-						scene.remove(bosmesh);
-						animate();
-					}
 				}
 
 				function init () {
@@ -375,9 +356,9 @@
 						camera.position.y = -100;
 						camera.position.x = -100;
 						// camera.lookAt(new THREE.Vector3( <? echo($windavgL); ?> * 25, <?echo($tempavgL); ?> * 10,<?echo(-$L/2)?>));
-						chimesh = new THREE.Object3D();
-						nycmesh = new THREE.Object3D();
-						bosmesh = new THREE.Object3D();
+						chilines = new THREE.Object3D();
+						nyclines = new THREE.Object3D();
+						boslines = new THREE.Object3D();
 						lamesh = new THREE.Object3D();
 
 						scene = new THREE.Scene();
