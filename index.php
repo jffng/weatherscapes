@@ -16,6 +16,8 @@
 
 	$weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created >" . (time() - (14 * 24 * 60 * 60)));
 
+	// $weather = $weatherMapper->query("SELECT * FROM openweatherinfo WHERE created < 1385856000");
+
 	foreach($weather as $cities){
 			if ($cities->city == "Los Angeles"){
 				// $Lmod++;
@@ -369,10 +371,10 @@
 						container.appendChild( renderer.domElement );
 
 						camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-						camera.position.z = 75;
+						camera.position.z = -285;
 						// camera.position.y = -100;
 						// camera.position.x = -100;
-						// camera.lookAt(new THREE.Vector3( <? echo($windavgL); ?> * 25, <?echo($tempavgL); ?> * 10,<?echo(-$L/2)?>));
+						// camera.lookAt(new THREE.Vector3( <? 0, 0,<?echo(-$L/2)?>));
 						chimesh = new THREE.Object3D();
 						nycmesh = new THREE.Object3D();
 						bosmesh = new THREE.Object3D();
